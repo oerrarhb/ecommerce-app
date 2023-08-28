@@ -30,3 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 frontend/angular-ecommerce/node_modules
+frontend/angular-ecommerce/auth_config.ts

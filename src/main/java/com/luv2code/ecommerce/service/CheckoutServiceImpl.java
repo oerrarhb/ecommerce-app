@@ -32,6 +32,10 @@ public class CheckoutServiceImpl implements CheckoutService{
 
     private void processCustomer(Purchase purchase, Order order) {
         Customer customer = purchase.getCustomer();
+        Customer customerFromTheDB = customerRepository.findByEmail(customer.getEmail());
+        if(customerFromTheDB != null) {
+            customer = customerFromTheDB;
+        }
         customer.addOrder(order);
         customerRepository.save(customer);
     }
