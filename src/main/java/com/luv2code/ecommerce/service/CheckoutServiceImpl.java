@@ -9,6 +9,7 @@ import com.luv2code.ecommerce.entity.OrderItem;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,8 +27,13 @@ public class CheckoutServiceImpl implements CheckoutService{
         String orderTrackingNumber = setOrderTrackingNumber(order);
         processOrderItems(purchase, order);
         processShippingAndBillingAddress(purchase, order);
+        setDateForOder(order);
         processCustomer(purchase, order);
         return new PurchaseResponse(orderTrackingNumber);
+    }
+
+    private void setDateForOder(Order order) {
+        order.setDateCreated(new Date());
     }
 
     private void processCustomer(Purchase purchase, Order order) {

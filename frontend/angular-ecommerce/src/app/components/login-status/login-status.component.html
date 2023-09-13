@@ -1,11 +1,15 @@
 <div class="login-status-header">
-    <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
+    <div *ngIf="(this.auth.isAuthenticated$ | async) && userFullName" class="login-status-user-info">
         Welcome back {{ userFullName }}
     </div>
-    <button *ngIf="(auth.isAuthenticated$ | async) === false" (click)="login()" class="security-btn">
+    <button *ngIf="(this.auth.isAuthenticated$ | async) === false" (click)="login()" class="security-btn">
         Login
     </button>
-    <button *ngIf="(auth.isAuthenticated$ | async)" (click)="logout()" class="security-btn">
+    <button *ngIf="(this.auth.isAuthenticated$ | async)" (click)="logout()" class="security-btn">
         Log out
+    </button>
+
+    <button *ngIf="(this.auth.isAuthenticated$ | async)" routerLink="/order-history" class="security-btn">
+        Orders
     </button>
 </div>

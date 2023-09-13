@@ -18,7 +18,7 @@ import { FormValidator } from 'src/app/validators/form-validator';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-
+  storage: Storage = sessionStorage;
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
     this.cartService.totalPrice.subscribe(
       totalPrice => this.totalPrice = totalPrice
     );
-    this.cartService.totalPrice.subscribe(
+    this.cartService.totalQuantity.subscribe(
       totalQuantity => this.totalQuantity = totalQuantity
     );
   }
@@ -91,11 +91,12 @@ export class CheckoutComponent implements OnInit {
 
 
   buildCheckoutForm() {
+    const email = JSON.parse(this.storage.getItem('userEmail'));
     this.checkoutFormGroup = this.formBuilder.group({
         customer: this.formBuilder.group({
         firstName: new FormControl('',[Validators.required,Validators.minLength(2),FormValidator.notOnlyWhiteSpace]),
         lastName:  new FormControl('',[Validators.required,Validators.minLength(2),FormValidator.notOnlyWhiteSpace]),
-        email: new FormControl('',[Validators.required, Validators.email])
+        email: new FormControl(email,[Validators.required, Validators.email])
       }),
         shippingAddress: this.formBuilder.group({
           street: new FormControl('', [Validators.required, Validators.minLength(2),FormValidator.notOnlyWhiteSpace]),
