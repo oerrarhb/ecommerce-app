@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 
 import { Routes, RouterModule } from '@angular/router';
@@ -20,6 +20,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from 'src/environments/environment';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   { path: 'order-history', component: OrderHistoryComponent },
@@ -55,10 +56,17 @@ const routes: Routes = [
     NgbModule,
     AuthModule.forRoot({
       ...env.auth,
+      httpInterceptor: {
+        allowedList: ['http://localhost:8080/api/orders/*'],
+      },
     }
     )
   ],
-  providers: [ProductService],
+  providers: [ProductService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthHttpInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

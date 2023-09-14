@@ -12,7 +12,6 @@ export class LoginStatusComponent implements OnInit {
   storage: Storage = sessionStorage;
 
   constructor(public auth : AuthService) {
-
   }
 
 
