@@ -57,7 +57,7 @@ const routes: Routes = [
     AuthModule.forRoot({
       ...env.auth,
       httpInterceptor: {
-        allowedList: ['http://localhost:8080/api/orders/*'],
+        allowedList: [`${env.ecommerceAPIUrl}/orders/*`,`${env.ecommerceAPIUrl}/checkout/purchase`],
       },
     }
     )

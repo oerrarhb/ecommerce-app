@@ -4,14 +4,15 @@ import { Observable, of } from 'rxjs';
 import { Country } from '../common/country';
 import { map, pipe } from 'rxjs';
 import { State } from '../common/state';
+import { environment as env} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopFormService {
 
-  private coutriesUrl: string = 'http://localhost:8080/api/countries';
-  private statesUrl: string = 'http://localhost:8080/api/states';
+  private coutriesUrl: string = `${env.ecommerceAPIUrl}/countries`;
+  private statesUrl: string = `${env.ecommerceAPIUrl}/states`;
 
 
   constructor(private httpClient: HttpClient) { }

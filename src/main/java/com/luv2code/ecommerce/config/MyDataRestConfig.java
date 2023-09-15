@@ -42,7 +42,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     private static void disableHttpMethods(RepositoryRestConfiguration config, Class theClass) {
         // disable HTTP methods for Product: PUT, POST, DELETE and PATCH
-        HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
+        HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.PATCH};
         config.getExposureConfiguration().forDomainType(theClass).withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
               .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
     }
